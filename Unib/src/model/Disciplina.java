@@ -2,30 +2,36 @@ package model;
 
 public class Disciplina {
     
-    private int codigo, aulasSemanais, faltas;
+    private int codigo, aulasSemanais, codCurso;
     private String nome;
-    private double cargaHoraria, np1, np2, media;
+    private double cargaHoraria;
 
     public Disciplina(
             int codigo, 
-            String nome,
-            double np1,
-            double np2,
-            double media,
-            int faltas,
+            String nome,            
+            double cargaHoraria,
             int aulasSemanais,
-            double cargaHoraria) {
+            int codCurso) {
         
         setCodigo(codigo);
         setNome(nome);
-        setNp1(np1);
-        setNp2(np2);
-        setMedia(media);
-        setFaltas(faltas);
+        setCargaHoraria(cargaHoraria);        
         setAulasSemanais(aulasSemanais);
-        setCargaHoraria(cargaHoraria);
+        setCodCurso(codCurso);
     }
 
+    @Override
+    public String toString() {
+        String ret = null;
+        
+        ret = "Código........: " + getCodigo() + "\n" +
+              "Nome..........: " + getNome() + "\n" +
+              "Carga horária.: " + getCargaHoraria() + "\n" +
+              "Aulas semanais: " + getAulasSemanais() + "\n" +
+              "Cód. do Curso.: " + getCodCurso();
+        
+        return ret;
+    }
     
     
     public void setCodigo(int codigo) {
@@ -42,22 +48,10 @@ public class Disciplina {
 
     public void setCargaHoraria(double cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-    
-    public void setFaltas(int faltas) {
-        this.faltas = faltas;
-    }
+    } 
 
-    public void setNp1(double np1) {
-        this.np1 = np1;
-    }
-
-    public void setNp2(double np2) {
-        this.np2 = np2;
-    }
-
-    public void setMedia(double media) {
-        this.media = media;
+    public void setCodCurso(int codCurso) {
+        this.codCurso = codCurso;
     }
     
     public int getCodigo() {
@@ -76,20 +70,8 @@ public class Disciplina {
         return cargaHoraria;
     }
 
-    public int getFaltas() {
-        return faltas;
-    }
-
-    public double getNp1() {
-        return np1;
-    }
-
-    public double getNp2() {
-        return np2;
-    }
-
-    public double getMedia() {
-        return media;
+    public int getCodCurso() {
+        return codCurso;
     }
 
     

@@ -3,29 +3,47 @@ package model;
 public class Professor {
     
     private int id;
-    private String nome, espec, titulo, dia, mes, ano;
+    private String nome, espec, titulo, dataNasc;
     private Endereco endereco;
 
 
     public Professor(int id,
             String nome,
+            String dataNasc,
             String espec, 
-            String titulo,
-            String dia, 
-            String mes, 
-            String ano,
+            String titulo,            
             Endereco endereco) {
         
         setId(id);
         setNome(nome);
         setEspec(espec);
         setTitulo(titulo);        
-        setDia(dia);
-        setMes(mes);
-        setAno(ano);
+        setDataNasc(dataNasc);
         setEndereco(endereco);
      }
 
+    
+    @Override
+    public String toString() {
+        String ret = null;
+        
+        ret = "Id............: " + getId() + "\n" +
+              "Nome..........: " + getNome() + "\n" +
+              "Nascimento....: " + getDataNasc() + "\n" +
+              "Especialização: " + getEspec() + "\n" +
+              "Título........: " + getTitulo() + "\n" +
+              "Endereço......: " + "\n" +
+              "Cep...........: " + endereco.getCep() + "\n" +
+              "Endereço......: " + endereco.getEndereco() + "\n" +
+              "Bairro........: " + endereco.getBairro() + "\n" +
+              "Cidade........: " + endereco.getCidade() + "\n" +
+              "Estado........: " + endereco.getEstado() + "\n" +
+              "Contato.......: " + "\n" +
+              "Telefone......: " + endereco.getTel() + "\n" +
+              "Email.........: " + endereco.getEmail() + "\n";
+        
+        return ret;
+    }
     
     public void setId(int id) {
         this.id = id;
@@ -43,16 +61,8 @@ public class Professor {
         this.titulo = titulo;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public void setAno(String ano) {
-        this.ano = ano;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     public void setEndereco(Endereco endereco) {
@@ -75,16 +85,8 @@ public class Professor {
         return titulo;
     }
 
-    public String getDia() {
-        return dia;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public String getAno() {
-        return ano;
+    public String getDataNasc() {
+        return dataNasc;
     }
 
     public Endereco getEndereco() {

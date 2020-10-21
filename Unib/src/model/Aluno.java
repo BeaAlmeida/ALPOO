@@ -2,25 +2,22 @@ package model;
 
 public class Aluno {
     
-    private int codCurso;
-    private String matricula, nome, mes, dia, ano;
+    private int matricula, codCurso;
+    private String nome, dataNasc;
     private Disciplina disciplinas[] = new Disciplina[5];
 
     
     public Aluno(
-            int codCurso, 
-            String matricula, 
+            int matricula, 
             String nome, 
-            String dia,
-            String mes,
-            String ano) {
+            String dataNasc,
+            int codCurso) {
         
-        setCodCurso(codCurso);
+        
         setMatricula(matricula);
         setNome(nome);
-        setDia(dia);
-        setMes(mes);
-        setAno(ano);
+        setDataNasc(dataNasc);
+        setCodCurso(codCurso);
         
     }
 
@@ -31,7 +28,7 @@ public class Aluno {
         
         ret = "Matricula.....: " + getMatricula() + "\n" +
               "Nome..........: " + getNome() + "\n" +
-              "Nascimento....: " + getDia() + getMes() + getAno() + "\n" +
+              "Nascimento....: " + getDataNasc() + "\n" +
               "Cód. Curso....: " + getCodCurso() + "\n" +
               "Disciplinas...: ";
         //imprimir vetores com nome disciplina, np1, np2, media e faltas
@@ -44,7 +41,7 @@ public class Aluno {
         this.codCurso = codCurso;
     }
 
-    public void setMatricula(String matricula) {
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
@@ -52,40 +49,24 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public void setAno(String ano) {
-        this.ano = ano;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
         
     public int getCodCurso() {
         return codCurso;
     }
     
-    public String getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
     public String getNome() {
         return nome;
     }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public String getAno() {
-        return ano;
+    
+    public String getDataNasc() {
+        return dataNasc;
     }
     
 }
