@@ -1,8 +1,10 @@
 package model;
 
+import dao.AlunoDAO;
+
 public class Aluno {
     
-    private int matricula, codCurso;
+    private int matricula, codCurso, codigo;
     private String nome, dataNasc;
     private Disciplina disciplinas[] = new Disciplina[5];
 
@@ -21,6 +23,19 @@ public class Aluno {
         
     }
 
+    public Aluno(
+            int codigo,
+            String nome,
+            int matricula,
+            String dataNasc,
+            int codCurso) {
+        
+        setCodigo(codigo);
+        setNome(nome);
+        setMatricula(matricula);
+        setCodCurso(codCurso);
+        
+    }
      
     @Override
     public String toString() {
@@ -36,6 +51,20 @@ public class Aluno {
         return ret;
     }
 
+    /*private void gravar(){
+        AlunoDAO dao = new AlunoDAO();
+        int codigo = dao.create(this);
+        if(codigo > 0) setCodigo(codigo);
+    }*/
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
 
     public void setCodCurso(int codCurso) {
         this.codCurso = codCurso;

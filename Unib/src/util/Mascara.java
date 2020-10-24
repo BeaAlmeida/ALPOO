@@ -13,7 +13,7 @@ public class Mascara {
     public static DefaultFormatterFactory getTelMask(){
         MaskFormatter mask = null;
         try{
-            mask = new MaskFormatter("(##) ####-####");
+            mask = new MaskFormatter(" (##) ####-####");
             mask.setPlaceholderCharacter('_');
         }catch (ParseException ex){
             return null;
@@ -25,7 +25,18 @@ public class Mascara {
     public static DefaultFormatterFactory getDataNascMask(){
         MaskFormatter mask = null;
         try{
-            mask = new MaskFormatter("##/##/####");
+            mask = new MaskFormatter(" ##/##/####");
+            mask.setPlaceholderCharacter('_');
+        }catch (ParseException ex){
+            return null;
+        }
+        return(new DefaultFormatterFactory (mask, mask));
+    }
+    
+    public static DefaultFormatterFactory getCepMask(){
+        MaskFormatter mask = null;
+        try{
+            mask = new MaskFormatter(" #####-###");
             mask.setPlaceholderCharacter('_');
         }catch (ParseException ex){
             return null;
