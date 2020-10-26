@@ -10,36 +10,39 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Aluno;
+import model.Disciplina;
 
-public class AlunoDAO {
-    private static AlunoDAO dao = null;
-    public AlunoDAO(){
-        
-    }
+public class DisciplinaDAO {
+    private static DisciplinaDAO dao = null;
+    public DisciplinaDAO(){ }
     
-    public static AlunoDAO getInstance(){
-        if (dao == null) dao = new AlunoDAO();
+    public static DisciplinaDAO getInstance(){
+        if (dao == null) dao = new DisciplinaDAO();
         return dao;  
     }
     
-    public int create(Aluno a) {
+    public int create(Disciplina d) {
         int id = 0;
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement pst = null;
         ResultSet rs = null;
         
-        String sql = "INSERT INTO Alunos (Nome, DataNasc, CodCurso) VALUES (?,?,?)";
+        String sql = "INSERT INTO Disciplinas (NomeD, CargaHorariaD, AulasSemanais, CodCurso) VALUES (?,?,?,?)";
         
         try{
             pst = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             
-            pst.setString(1, a.getNome());
-            pst.setString(2, a.getDataNasc());
-            pst.setInt(3, a.getCodCurso());            
-            pst.execute();
-            rs = pst.getGeneratedKeys();            
-            if (rs.next())id = rs.getInt(1);
+            pst.setString(1, d.getNome());
+            pst.setDouble(2, d.getCargaHoraria());
+            pst.setInt(3, d.getAulasSemanais());
+            pst.setInt(4, d.getCodCurso());
             
+            pst.execute();
+            rs = pst.getGeneratedKeys();
+            
+            if (rs.next()){
+                id = rs.getInt(1);
+            }
             JOptionPane.showMessageDialog(null,"Dados inseridos com sucesso!");
             
         }catch(SQLException ex){
@@ -48,41 +51,41 @@ public class AlunoDAO {
             
         }finally{
             ConnectionFactory.closeConnection(con, pst, rs);
-        }        
+        }
+        
         return id;
     }
     
        
-    public List<Aluno> read(){
+    public List<Disciplina> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement pst = null;
         ResultSet rs = null;
         
-        List<Aluno> alunos = new ArrayList<>();
+        List<Disciplina> listaDisci = new ArrayList<>();
         try {
-            pst = con.prepareStatement("SELECT A.Matricula, A.Nome, A.DataNasc, C.NomeC "
-                                        + "FROM Alunos A "
-                                        + "INNER JOIN Cursos C "
-                                        + "ON A.CodCurso = C.CodCurso");
+            pst = con.prepareStatement("SELECT CodDisci, NomeD, CargaHorariaD, AulasSemanais,CodCurso "
+                                        + "FROM Disciplinas ");
             rs = pst.executeQuery();
             
             while (rs.next()) {
-                Aluno aluno = new Aluno(0, "", "", "");
+                Disciplina disci = new Disciplina(0,"",0,0,0);
                 
-                aluno.setMatricula(rs.getInt("Matricula"));
-                aluno.setNome(rs.getString("Nome"));
-                aluno.setDataNasc(rs.getString("DataNasc"));
-                aluno.setNomeCurso(rs.getString("NomeC"));
-                alunos.add(aluno);
+                disci.setCodDisci(rs.getInt("CodDisci"));
+                disci.setNome(rs.getString("NomeD"));
+                disci.setCargaHoraria(rs.getDouble("CargaHorariaD"));
+                disci.setAulasSemanais(rs.getInt("AulasSemanais"));
+                disci.setCodCurso(rs.getInt("CodCurso"));
+                listaDisci.add(disci);
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
             
         } finally {
             ConnectionFactory.closeConnection(con, pst, rs);
         }
-        return alunos;
+        return listaDisci;
         
     }
         
@@ -91,13 +94,13 @@ public class AlunoDAO {
         PreparedStatement pst = null;
         ResultSet rs = null;
         
-        String sql = "DELETE FROM Alunos WHERE Matricula = ?";
+        String sql = "DELETE FROM Disciplinas WHERE CodDisci = ?";
         
         try{
             pst = con.prepareStatement(sql);
             pst.setInt(1,id);
             pst.execute();
-            JOptionPane.showMessageDialog(null,"Aluno excluido com sucesso!");
+            JOptionPane.showMessageDialog(null,"Disciplina excluida com sucesso!");
             
         }catch(SQLException ex){
             throw new RuntimeException("Erro no Select");
@@ -107,23 +110,24 @@ public class AlunoDAO {
         }
     }    
     
-    public void update(Aluno a){
+    public void update(Disciplina d){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement pst = null;
         ResultSet rs = null;
         
-        String sql = "UPDATE Alunos SET Nome = ?, DataNasc = ?, CodCurso = ? where Matricula = ?";
+        String sql = "UPDATE Disciplinas SET NomeD = ?, CargaHorariaD = ?, AulasSemanais = ?, CodCurso = ? "
+                + "where CodDisci = ?";
         
         try{
             pst = con.prepareStatement(sql);            
                         
-            pst.setString(1, a.getNome());
-            pst.setString(2, a.getDataNasc());
-            pst.setInt(3, a.getCodCurso());
-            pst.setInt(4, a.getMatricula());
+            pst.setString(1, d.getNome());
+            pst.setDouble(2, d.getCargaHoraria());
+            pst.setInt(3, d.getAulasSemanais());
+            pst.setInt(4, d.getCodCurso());
             
             pst.execute();
-            JOptionPane.showMessageDialog(null,"Aluno atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null,"Disciplina atualizada com sucesso!");
             
         } catch(SQLException ex) {
             throw new RuntimeException("Erro no update");
@@ -134,60 +138,57 @@ public class AlunoDAO {
 
     }
     
-    public List<Aluno> busca(String name){
+    public List<Disciplina> busca(String name){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement pst = null;
         ResultSet rs = null;        
         
-        List<Aluno> alunos = new ArrayList<>();
+        List<Disciplina> listaDisci = new ArrayList<>();
         
         try {
-            pst = con.prepareStatement("select * from alunos where nome like '%" + name + "%'");
+            pst = con.prepareStatement("select * from Disciplinas where nome like '%" + name + "%'");
             rs = pst.executeQuery();
-            
+                                    
             while (rs.next()) {
-                Aluno aluno = new Aluno(0,"","","");
-                                
-                aluno.setMatricula(rs.getInt("Matricula"));
-                aluno.setNome(rs.getString("Nome"));                
-                aluno.setDataNasc(rs.getString("DataNasc"));
-                aluno.setCodCurso(rs.getInt("CodCurso"));
-                alunos.add(aluno);
+                Disciplina disci = new Disciplina(0,"",0,0,0);
+                
+                disci.setCodDisci(rs.getInt("CodDisci"));
+                disci.setNome(rs.getString("NomeD"));
+                disci.setCargaHoraria(rs.getDouble("CargaHorariaD"));
+                disci.setAulasSemanais(rs.getInt("AulasSemanais"));
+                disci.setCodCurso(rs.getInt("CodCurso"));
                 
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
             
         } finally {
             ConnectionFactory.closeConnection(con, pst, rs);
         }
-        return alunos;
+        return listaDisci;
     }
     
     
-    public Aluno findByMatricula(int id) {
+    public Disciplina findByCodDisci(int id) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement pst = null;
         ResultSet rs = null;
-        Aluno a = null;
-        String sql = ("SELECT A.Matricula, A.Nome, A.DataNasc, A.CodCurso, C.NomeC"
-                                        + "FROM Alunos A "
-                                        + "INNER JOIN Cursos C "
-                                        + "ON A.CodCurso = C.CodCurso "
-                                        + "WHERE Matricula = ?");
+        Disciplina d = null;
+        String sql = ("SELECT CodDisci, NomeD, CargaHorariaD, AulasSemanais, CodCurso"
+                    + "FROM Disciplinas ");
         try{
             pst = con.prepareStatement(sql);
             pst.setInt(1,id);
             rs = pst.executeQuery();
             
             while (rs.next()){
-                int matricula = rs.getInt("Matricula");
-                String nome = rs.getString("Nome");
-                String dataNasc = rs.getString("DataNasc");
+                int codDisci = rs.getInt("CodDisci");
+                String nome = rs.getString("NomeD");
+                double cargaHoraria = rs.getDouble("CargaHorariaD");
+                int aulasSemanais = rs.getInt("AulasSemanais");
                 int codCurso = rs.getInt("CodCurso");
-                String nomeCurso = rs.getString("NomeC");
-                a = new Aluno (matricula, nome, dataNasc, codCurso, nomeCurso);
+                d = new Disciplina (codDisci, nome, cargaHoraria, aulasSemanais, codCurso);
             }
         }catch(SQLException ex){
             throw new RuntimeException("Erro no Select");
@@ -196,7 +197,7 @@ public class AlunoDAO {
             ConnectionFactory.closeConnection(con, pst, rs);            
         }
         
-        return a;
+        return d;
     }
 
 }

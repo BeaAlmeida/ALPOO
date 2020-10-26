@@ -2,7 +2,7 @@ package model;
 
 public class Disciplina {
     
-    private int codigo, aulasSemanais, codCurso;
+    private int codDisci, aulasSemanais, codCurso;
     private String nome;
     private double cargaHoraria;
 
@@ -13,18 +13,31 @@ public class Disciplina {
             int aulasSemanais,
             int codCurso) {
         
-        setCodigo(codigo);
+        setCodDisci(codigo);
         setNome(nome);
         setCargaHoraria(cargaHoraria);        
         setAulasSemanais(aulasSemanais);
         setCodCurso(codCurso);
     }
+    
+        public Disciplina(
+            String nome,            
+            double cargaHoraria,
+            int aulasSemanais,
+            int codCurso) {
+        
+        setNome(nome);
+        setCargaHoraria(cargaHoraria);        
+        setAulasSemanais(aulasSemanais);
+        setCodCurso(codCurso);
+    }
+        
 
     @Override
     public String toString() {
         String ret = null;
         
-        ret = "Código........: " + getCodigo() + "\n" +
+        ret = "Código........: " + getCodDisci() + "\n" +
               "Nome..........: " + getNome() + "\n" +
               "Carga horária.: " + getCargaHoraria() + "\n" +
               "Aulas semanais: " + getAulasSemanais() + "\n" +
@@ -34,8 +47,8 @@ public class Disciplina {
     }
     
     
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodDisci(int codigo) {
+        this.codDisci = codigo;
     }
 
     public void setAulasSemanais(int aulasSemanais) {
@@ -54,8 +67,8 @@ public class Disciplina {
         this.codCurso = codCurso;
     }
     
-    public int getCodigo() {
-        return codigo;
+    public int getCodDisci() {
+        return codDisci;
     }
 
     public int getAulasSemanais() {

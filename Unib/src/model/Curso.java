@@ -2,30 +2,45 @@ package model;
 
 public class Curso {
     
-    private int codInstituto;
-    private long codigo;
+    private int codInstituto, cargaHoraria;
+    private long codCurso;
     private String nome, tipo;
-    private double cargaHoraria;
 
     public Curso(
             int codigo,
-            String nome,             
-            String tipo, 
-            double cargaHoraria,
+            String nome,
+            int cargaHoraria,
+            String tipo,            
             int codInstituto) {
         
-        setCodigo(codigo);
+        setCodCurso(codigo);
         setNome(nome);        
         setTipo(tipo);
         setCargaHoraria(cargaHoraria);
         setCodInstituto(codInstituto);
     }
     
+    public Curso(
+            String nome,
+            int cargaHoraria,
+            String tipo,            
+            int codInstituto) {
+        
+        setNome(nome);        
+        setTipo(tipo);
+        setCargaHoraria(cargaHoraria);
+        setCodInstituto(codInstituto);
+    }
+    
+    public Curso(String nome) {
+        setNome(nome);  
+    }
+    
     @Override
     public String toString() {
         String ret = null;
         
-        ret = "Código........: " + getCodigo() + "\n" +
+        ret = "Código........: " + getCodCurso() + "\n" +
               "Nome..........: " + getNome() + "\n" +
               "Tipo..........: " + getTipo() + "\n" +
               "Carga Horária.: " + getCargaHoraria() + "\n" +
@@ -34,8 +49,8 @@ public class Curso {
         return ret;
     }    
     
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodCurso(int codigo) {
+        this.codCurso = codigo;
                 
     }
 
@@ -51,12 +66,12 @@ public class Curso {
         this.tipo = tipo;
     }
 
-    public void setCargaHoraria(double cargaHoraria) {
+    public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public long getCodigo() {
-        return codigo;
+    public long getCodCurso() {
+        return codCurso;
     }
 
     public int getCodInstituto() {
@@ -71,7 +86,7 @@ public class Curso {
         return tipo;
     }
 
-    public double getCargaHoraria() {
+    public int getCargaHoraria() {
         return cargaHoraria;
     }
 

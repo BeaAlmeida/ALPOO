@@ -21,6 +21,21 @@ public class Professor {
         setDataNasc(dataNasc);
         setEndereco(endereco);
      }
+    
+    public Professor(
+            String nome,
+            String dataNasc,
+            String espec, 
+            String titulo,            
+            Endereco endereco) {
+        
+        
+        setNome(nome);
+        setEspec(espec);
+        setTitulo(titulo);        
+        setDataNasc(dataNasc);
+        setEndereco(endereco);
+     }
 
     
     @Override

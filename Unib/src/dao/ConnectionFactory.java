@@ -9,7 +9,8 @@ import java.sql.SQLException;
 
 
 public class ConnectionFactory {
-    private static final String URL = "jdbc:sqlite:C:\\Users\\PICHAU\\Documents\\GitHub\\ALPOO\\Unib\\db\\UnibDB.db";
+    private static final String URL = "jdbc:sqlite:C:\\Users\\PICHAU\\Desktop\\UNIB\\Unib\\db\\UnibDB.db";
+    
     
     public static Connection getConnection(){
         try{

@@ -1,11 +1,9 @@
 package model;
 
-import dao.AlunoDAO;
-
 public class Aluno {
     
-    private int matricula, codCurso, codigo;
-    private String nome, dataNasc;
+    private int matricula, codCurso;
+    private String nome, dataNasc, nomeCurso;
     private Disciplina disciplinas[] = new Disciplina[5];
 
     
@@ -13,8 +11,48 @@ public class Aluno {
             int matricula, 
             String nome, 
             String dataNasc,
-            int codCurso) {
+            int codCurso,
+            String nomeCurso) {
         
+        setMatricula(matricula);
+        setNome(nome);
+        setDataNasc(dataNasc);
+        setCodCurso(codCurso);
+        setNomeCurso(nomeCurso);
+        
+    }
+    
+    public Aluno(
+            String nome, 
+            String dataNasc,
+            int codCurso,
+            String nomeCurso) {
+               
+        setNome(nome);
+        setDataNasc(dataNasc);
+        setCodCurso(codCurso);
+        setNomeCurso(nomeCurso);
+        
+    }
+    
+    public Aluno(
+            int matricula,
+            String nome, 
+            String dataNasc,
+            String nomeCurso) {
+        
+        setMatricula(matricula);
+        setNome(nome);
+        setDataNasc(dataNasc);
+        setNomeCurso(nomeCurso);
+        
+    }
+     
+    public Aluno(
+            int matricula, 
+            String nome, 
+            String dataNasc,
+            int codCurso) {
         
         setMatricula(matricula);
         setNome(nome);
@@ -22,21 +60,18 @@ public class Aluno {
         setCodCurso(codCurso);
         
     }
-
-    public Aluno(
-            int codigo,
-            String nome,
-            int matricula,
+    
+    public Aluno( 
+            String nome, 
             String dataNasc,
             int codCurso) {
-        
-        setCodigo(codigo);
+       
         setNome(nome);
-        setMatricula(matricula);
+        setDataNasc(dataNasc);
         setCodCurso(codCurso);
         
     }
-     
+    
     @Override
     public String toString() {
         String ret = null;
@@ -45,26 +80,13 @@ public class Aluno {
               "Nome..........: " + getNome() + "\n" +
               "Nascimento....: " + getDataNasc() + "\n" +
               "Cód. Curso....: " + getCodCurso() + "\n" +
+              "Nome Curso....: " + getNomeCurso() + "\n" +
               "Disciplinas...: ";
         //imprimir vetores com nome disciplina, np1, np2, media e faltas
         
         return ret;
     }
 
-    /*private void gravar(){
-        AlunoDAO dao = new AlunoDAO();
-        int codigo = dao.create(this);
-        if(codigo > 0) setCodigo(codigo);
-    }*/
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-    
 
     public void setCodCurso(int codCurso) {
         this.codCurso = codCurso;
@@ -80,6 +102,10 @@ public class Aluno {
 
     public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
+    }
+    
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
     }
         
     public int getCodCurso() {
@@ -97,5 +123,12 @@ public class Aluno {
     public String getDataNasc() {
         return dataNasc;
     }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    
+    
     
 }
