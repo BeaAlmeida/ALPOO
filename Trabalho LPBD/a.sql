@@ -101,7 +101,7 @@ from responsavel R
 		on A.cd_curso = C.cd_curso
 			join curso_has_disciplina CD
 			on C.cd_curso = CD.cd_curso
-group by CD.cd_curso;
+group by A.cd_aluno;
 
 /* exiba o nome do professor, o titulo do professor, o nome da disciplina, o nome do curso, o tipo de curso e o nome do coordenador.
 Exiba também as disciplinas que não tenham um professor ou não estejam em um curso ou que o curso não tenha um coordenador. */
